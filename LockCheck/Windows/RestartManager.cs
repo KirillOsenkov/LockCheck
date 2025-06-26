@@ -63,7 +63,12 @@ namespace LockCheck.Windows
                         var lockInfos = new List<ProcessInfo>((int)pnProcInfo);
                         for (int i = 0; i < pnProcInfo; i++)
                         {
-                            lockInfos.Add(ProcessInfoWindows.Create(rgAffectedApps[i]));
+                            var affectedApp = rgAffectedApps[i];
+                            var info = ProcessInfoWindows.Create(affectedApp);
+                            if (info != null)
+                            {
+                                lockInfos.Add(info);
+                            }
                         }
                         return lockInfos;
                     }
